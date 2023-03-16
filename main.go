@@ -66,8 +66,50 @@ func getList(total uint, size uint, slot uint, currentPage uint) []string {
 	return lists
 }
 
+func getList2(total uint, size uint, slot uint, currentPage uint) []string {
+	var lists []string
+	pageCount := uint(math.Ceil(float64(total) / float64(size)))
+
+	if pageCount <= slot {
+		for i := 1; i <= int(pageCount); i++ {
+			lists = append(lists, fmt.Sprint(i))
+		}
+		return lists
+
+	}
+
+	space := (slot - 1) / 2
+
+	if currentPage < slot {
+		for i := 1; i < int(slot+space); i++ {
+			lists = append(lists, fmt.Sprint(i))
+		}
+		lists = append(lists, "...")
+		lists = append(lists, fmt.Sprint(pageCount))
+		return lists
+
+	}
+	if currentPage > pageCount-slot {
+		lists = append(lists, fmt.Sprint(1))
+		lists = append(lists, "...")
+		for i := int(pageCount - slot); i <= int(pageCount); i++ {
+			lists = append(lists, fmt.Sprint(i))
+		}
+		return lists
+	}
+	lists = append(lists, fmt.Sprint(1))
+	lists = append(lists, "...")
+	for i := int(currentPage - ((slot - 1) / 2)); i <= int(currentPage+((slot-1)/2)); i++ {
+		lists = append(lists, fmt.Sprint(i))
+	}
+	lists = append(lists, "...")
+	lists = append(lists, fmt.Sprint(pageCount))
+
+	return lists
+}
+
 func main() {
 
-	fmt.Println(getList(150, 10, 5, 1))
+	fmt.Println(getList2(80, 10, 7, 2))
 
 }
