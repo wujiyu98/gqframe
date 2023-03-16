@@ -11,6 +11,7 @@ type User struct {
 	Company         string `gorm:"type:varchar(255)"`
 	Password        string `gorm:"type:varchar(255)"`
 	RememberToken   string `gorm:"type:varchar(255)"`
+	AreaCode        string `gorm:"type:varchar(10)"`
 	MobilePhone     string `gorm:"type:varchar(20)"`
 	EmailVerifiedAt time.Time
 	CreatedAt       time.Time
@@ -19,19 +20,21 @@ type User struct {
 
 // Address
 type Address struct {
-	ID        uint   `gorm:"primarykey"`
-	UserID    uint   `gorm:"type:int(11);not null"`
-	CountryID uint   `gorm:"type:int(11);not null"`
-	StateID   uint   `gorm:"type:int(11);not null"`
-	CityID    uint   `gorm:"type:int(11);not null"`
-	Firstname string `gorm:"type:varchar(20);not null"`
-	Lastname  string `gorm:"type:varchar(20);not null"`
-	Company   string `gorm:"type:varchar(255);default:''"`
-	Postcode  string `gorm:"type:varchar(30);default:''"`
-	Address1  string `gorm:"type:varchar(255);default:''"`
-	Address2  string `gorm:"type:varchar(255);default:''"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID          uint   `gorm:"primarykey"`
+	UserID      uint   `gorm:"type:int(11);not null"`
+	CountryID   uint   `gorm:"type:int(11);not null"`
+	StateID     uint   `gorm:"type:int(11);not null"`
+	CityID      uint   `gorm:"type:int(11);not null"`
+	Firstname   string `gorm:"type:varchar(20);not null"`
+	Lastname    string `gorm:"type:varchar(20);not null"`
+	Company     string `gorm:"type:varchar(255);default:''"`
+	AreaCode    string `gorm:"type:varchar(10);not null"`
+	MobilePhone string `gorm:"type:varchar(20);not null"`
+	Postcode    string `gorm:"type:varchar(30);default:''"`
+	Address1    string `gorm:"type:varchar(255);not null"`
+	Address2    string `gorm:"type:varchar(255);default:''"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 type Message struct {
