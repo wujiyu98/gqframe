@@ -11,12 +11,25 @@ type Paginator struct {
 	PerPage     int
 	CurrentPage int
 	Path        string
+	Order       string
 	EachSide    int
 }
 
 type PageUrl struct {
 	Page string
 	Url  string
+}
+
+func Default() *Paginator {
+
+	return &Paginator{
+		Total:       80,
+		PerPage:     10,
+		CurrentPage: 5,
+		Path:        "/",
+		Order:       "id-desc",
+		EachSide:    3,
+	}
 }
 
 func (p *Paginator) method() {
@@ -91,11 +104,16 @@ func (p *Paginator) getUrl(page string) string {
 	if p.isFirstPage(page) {
 		return p.Path
 	}
+	sign := "?"
 	if strings.Contains(p.Path, "?") {
-		return p.Path + "&page=" + page
-	} else {
-		return p.Path + "?page=" + page
+		sign = "&"
 	}
+	return fmt.Sprintf(`%spage=%s%s`, sign, page, p.query())
+}
+
+func (p *Paginator) query() string {
+
+	return fmt.Sprintf(`&size=%d&order=%s`, p.PerPage, p.Order)
 
 }
 
@@ -105,7 +123,7 @@ func (p *Paginator) GetPageUrls() (pageUrls []PageUrl) {
 		var pageUrl PageUrl
 		pageUrl.Page = list
 		if list != "..." {
-			p.getUrl(list)
+			pageUrl.Url = p.getUrl(list)
 		}
 		pageUrls = append(pageUrls, pageUrl)
 	}
