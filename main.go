@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/wujiyu98/gqframe/tool/pagination"
+	"github.com/wujiyu98/gqframe/tool/email"
 )
 
 func main() {
-	p := pagination.Default()
-	fmt.Println(p.GetPageUrls())
+
+	// view.Test()
+	// fmt.Println(filepath.Base("sadaf/index.html"))
+	email.Send()
+
 }

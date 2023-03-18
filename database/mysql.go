@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/spf13/viper"
+	"github.com/wujiyu98/gqframe/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -12,7 +12,7 @@ var (
 )
 
 func init() {
-	dsn := viper.GetString("mysql.dsn")
+	dsn := config.V.GetString("database.dsn")
 	DB, err = gorm.Open(mysql.New(mysql.Config{
 		DSN:               dsn, // DSN data source name
 		DefaultStringSize: 256, // string 类型字段的默认长度
