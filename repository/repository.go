@@ -25,3 +25,8 @@ func (r Repository) GetAtticleByID(id uint) (row model.Article, err error) {
 	err = r.First(&row).Error
 	return
 }
+
+func (r Repository) GetAtticleByPathname(pathname string) (row model.Article, err error) {
+	err = r.First(&row, &model.Article{Pathname: pathname}).Error
+	return
+}
