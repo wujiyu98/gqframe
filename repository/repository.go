@@ -16,17 +16,32 @@ type Repository struct {
 	*gorm.DB
 }
 
-func (r Repository) GetAtticles() (rows []model.Article) {
+func (r Repository) GetArticles() (rows []model.Article) {
 	r.Find(&rows)
 	return
 }
 
-func (r Repository) GetAtticleByID(id uint) (row model.Article, err error) {
+func (r Repository) GetArticleByID(id uint) (row model.Article, err error) {
 	err = r.First(&row).Error
 	return
 }
 
-func (r Repository) GetAtticleByPathname(pathname string) (row model.Article, err error) {
+func (r Repository) GetArticleByPathname(pathname string) (row model.Article, err error) {
+	err = r.First(&row, &model.Article{Pathname: pathname}).Error
+	return
+}
+
+func (r Repository) GetProducts() (rows []model.Article) {
+	r.Find(&rows)
+	return
+}
+
+func (r Repository) GetProductByID(id uint) (row model.Article, err error) {
+	err = r.First(&row).Error
+	return
+}
+
+func (r Repository) GetProductByPathname(pathname string) (row model.Article, err error) {
 	err = r.First(&row, &model.Article{Pathname: pathname}).Error
 	return
 }
