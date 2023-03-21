@@ -103,6 +103,19 @@ type Category struct {
 	Meta      Meta   `gorm:"embedded;embeddedPrefix:meta_"`
 }
 
+// Manufacturer
+type Manufacturer struct {
+	gorm.Model
+	Name      string `gorm:"size:255;not null"`
+	Abbr      string `gorm:"size:10;default:''"`
+	Pathname  string `gorm:"size:255;not null;unique"`
+	SortOrder uint   `gorm:"type:int(11);default:0"`
+	Qty       uint   `gorm:"default:0"`
+	Image     string `gorm:"size:255;default:''"`
+	Summary   string `gorm:"type:text;"`
+	Meta      Meta   `gorm:"embedded;embeddedPrefix:meta_"`
+}
+
 // Product
 type Product struct {
 	gorm.Model

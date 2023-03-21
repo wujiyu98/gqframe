@@ -2,6 +2,11 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/wujiyu98/gqframe/service"
+)
+
+var (
+	s = service.NewFront()
 )
 
 func NewFront() *Front {
@@ -12,6 +17,7 @@ type Front struct {
 }
 
 func (c Front) Index(ctx *gin.Context) {
+	s.Index(ctx)
 
 }
 
@@ -60,5 +66,13 @@ func (c Front) Inquiry(ctx *gin.Context) {
 }
 
 func (c Front) Contact(ctx *gin.Context) {
+
+}
+
+func (c Front) PostMessage(ctx *gin.Context) {
+
+}
+
+func (c Front) PostInquiry(ctx *gin.Context) {
 
 }

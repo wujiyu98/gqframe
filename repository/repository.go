@@ -4,6 +4,7 @@ import (
 	"github.com/wujiyu98/gqframe/database"
 	"github.com/wujiyu98/gqframe/model"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 func New() Repository {
@@ -37,7 +38,7 @@ func (r Repository) GetProducts() (rows []model.Article) {
 }
 
 func (r Repository) GetProductByID(id uint) (row model.Article, err error) {
-	err = r.First(&row).Error
+	err = r.Preload(clause.Associations).First(&row).Error
 	return
 }
 

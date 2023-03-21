@@ -1,9 +1,10 @@
 package model
 
 type IndexRep struct {
-	News        []Article
-	HotProducts []Product
-	NewProducts []Product
+	News          []Article
+	HotProducts   []Product
+	NewProducts   []Product
+	Manufacturers []Manufacturer
 }
 
 type ManufacturersRep struct {

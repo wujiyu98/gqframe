@@ -42,7 +42,7 @@ type Message struct {
 	Name        string `gorm:"varchar(60);not null"`
 	Email       string `gorm:"varchar(60);not null"`
 	Country     string `gorm:"varchar(60);not null"`
-	AreaCode    string `gorm:"varchar(60);not null"`
+	AreaCode    string `gorm:"varchar(10);not null"`
 	MobilePhone string `gorm:"varchar(30);not null"`
 	Company     string `gorm:"varchar(120);default:''"`
 	Comment     string `gorm:"varchar(255);not null"`
@@ -55,7 +55,7 @@ type Enquiry struct {
 	Name        string        `gorm:"varchar(60);not null"`
 	Email       string        `gorm:"varchar(60);not null"`
 	Country     string        `gorm:"varchar(60);not null"`
-	AreaCode    string        `gorm:"varchar(30);not null"`
+	AreaCode    string        `gorm:"varchar(10);not null"`
 	MobilePhone string        `gorm:"varchar(30);not null"`
 	Company     string        `gorm:"varchar(120);default:''"`
 	Comment     string        `gorm:"varchar(255);not null"`
