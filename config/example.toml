@@ -1,14 +1,10 @@
-[server]
+env="dev"
 domain = "gin.com"
 host = "127.0.0.1"
 name = "gin app"
-port = 8080
-
-[database]
+port = ":8089"
+assetUrl="http://localhost/"
 dsn = "root:password@tcp(127.0.0.1:3306)/go_test?charset=utf8mb4&parseTime=True&loc=Local"
-
-[oss]
-dsn = "bucker.oss-accelerate.aliyuncs.com"
 
 [email]
 host = "smtp.exmail.qq.com"

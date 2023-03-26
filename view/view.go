@@ -26,7 +26,7 @@ func Test() {
 }
 
 // fh直接引用目录文件模式
-func LoadTemplates() multitemplate.Renderer {
+func LoadTemplates(funMap template.FuncMap) multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
 	layouts := []string{"view/layouts/master.html", "view/layouts/header.html", "view/layouts/footer.html"}
@@ -45,7 +45,8 @@ func LoadTemplates() multitemplate.Renderer {
 		copy(layoutCopy, layouts)
 		layoutCopy = append(layoutCopy, page)
 		files := append(layoutCopy, components...)
-		r.AddFromFiles(filepath.Base(page), files...)
+		r.AddFromFilesFuncs(filepath.Base(page), funMap, files...)
+
 	}
 	return r
 }
@@ -61,7 +62,7 @@ func getComponents() (lists []string) {
 }
 
 // 缓存文件模式
-func LoadTemplatesFs() multitemplate.Renderer {
+func LoadTemplatesFs(funMap template.FuncMap) multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 	layouts := []string{"layouts/master.html", "layouts/header.html", "layouts/footer.html"}
 	components := getComponents()
@@ -72,7 +73,7 @@ func LoadTemplatesFs() multitemplate.Renderer {
 		pathname := fmt.Sprintf("pages/%s", row.Name())
 		layoutCopy = append(layoutCopy, pathname)
 		layoutCopy = append(layoutCopy, components...)
-		t := template.Must(template.ParseFS(fs, layoutCopy...))
+		t := template.Must(template.New("master.html").Funcs(funMap).ParseFS(fs, layoutCopy...))
 		r.Add(row.Name(), t)
 	}
 	return r

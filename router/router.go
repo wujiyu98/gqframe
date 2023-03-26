@@ -10,12 +10,16 @@ var e *gin.Engine
 
 func init() {
 	e = gin.Default()
-	e.HTMLRender = view.LoadTemplates()
-	// e.HTMLRender = view.LoadTemplatesFs2()
+	if config.V.GetString("env") == "dev" {
+		e.HTMLRender = view.LoadTemplates(funcMap)
+	} else {
+		e.HTMLRender = view.LoadTemplatesFs(funcMap)
+	}
+
 	web(e)
 	api(e)
 }
 
 func Run() {
-	e.Run(config.V.GetString("server.port"))
+	e.Run(config.V.GetString("port"))
 }
