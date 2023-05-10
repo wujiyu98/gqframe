@@ -43,6 +43,7 @@ type Banner struct {
 	LanguageID uint   `gorm:"smallint;not null"`
 	Name       string `gorm:"default:''"`
 	Image      string `gorm:"default:''"`
+	Color      string `gorm:"default:''"`
 	Href       string `gorm:"default:''"`
 	Title      string `gorm:"default:''"`
 	Summary    string `gorm:"default:''"`
