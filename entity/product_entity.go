@@ -38,15 +38,9 @@ type Brand struct {
 	Meta
 }
 
-type AttributeGroup struct {
+type Attribute struct {
 	ID   uint
 	Name string
-}
-
-type Attribute struct {
-	ID               uint
-	Name             string
-	AttributeGroupID uint
 }
 
 type Item struct {
@@ -96,6 +90,7 @@ type Product struct {
 type ItemSpec struct {
 	ProductID uint `gorm:"primarykey"`
 	SpecID    uint `gorm:"primarykey"`
+	Value     string
 }
 
 type ProductSpecOption struct {
