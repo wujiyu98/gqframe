@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <div id="app">
+    <div v-for="(v,index) in spec_group" :key="index" id="sku">
+      <h4>{{v.attr_name}}</h4>
+      <div>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons" v-for="item in v.lists">
+          <label class="btn btn-primary">
+            <input type="radio" :value="item.attr" :name="v.attr_name" @change="handleSelect()"
+              :disabled="item.disabled">
+            {{item.attr}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          select: {
+            color: "",
+            memory: "",
+            disk: ""
+
+          },
+          skus: [
+            { id: 1, title: "red_4G_128", image: "/sfa", price: 131, quantity: 10, group: ["red", "4G", "128"] },
+            { id: 2, title: "red_4G_256", image: "/sfa", price: 131, quantity: 6, group: ["red", "4G", "256"] },
+            { id: 3, title: "blue_4G_128", image: "/sfa", price: 131, quantity: 0, group: ["blue", "4G", "128"] },
+            { id: 4, title: "blue_4G_256", image: "/sfa", price: 131, quantity: 6, group: ["blue", "4G", "256"] },
+          ],
+          specs: [
+            { attr_name: "color", lists: ["red", "blue", "green"] },
+            { attr_name: "memory", lists: ["4G", "8G"] },
+            { attr_name: "disk", lists: ["128", "256"] }
+          ],
+          spec_group: []
+
+        }
+
+      },
+      computed: {
+
+
+      },
+      created() {
+        this.setGroup()
+
+      },
+      methods: {
+        handleSelect() {
+          this.setGroup()
+        },
+        getInclude(arr1, arr2) {
+          let tmp = []
+          tmp = arr2.filter((v) => {
+            if (arr1.includes(v)) {
+              return true
+            }
+          })
+          if (tmp.length < arr2.length) {
+            return false
+
+          } else {
+            return true
+          }
+        },
+        setGroup() {
+          let newSku = [];
+          let select_attr = [];
+          let select_vals = [];
+          let inputs = document.querySelectorAll("#sku input:checked")
+          inputs.forEach((input) => {
+            select_attr.push(input.getAttribute("name"))
+            select_vals.push(input.getAttribute("value"))
+          });
+          this.specs.forEach((spec) => {
+            let newLists = [];
+            spec.lists.forEach((list) => {
+              let disabled = true
+              let cmb = []
+              if (!select_attr.includes(spec.attr_name)) {
+                cmb.push(...select_vals)
+
+              }
+              cmb.push(list)
+              console.log('cmb :>> ', cmb);
+              let quantity = 0
+              let f_skus = this.skus.filter((f) => {
+                if (this.getInclude(f.group, cmb)) {
+                  quantity += f.quantity
+                  return true
+                }
+              })
+              if (f_skus.length > 0 && quantity > 0) {
+                disabled = false
+              }
+              let tmp = { "attr": list, "disabled": disabled }
+              console.log('tmp :>> ', tmp);
+              newLists.push(tmp)
+
+
+            })
+            newSku.push({ attr_name: spec.attr_name, lists: newLists })
+          })
+          this.spec_group = newSku
+
+
+        }
+      }
+
+    }).mount('#app') </script>
+
+</body>
+
+</html>

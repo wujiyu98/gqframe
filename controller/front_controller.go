@@ -13,7 +13,6 @@ type Front struct {
 
 // Index
 func (c Front) Index(ctx *gin.Context) {
-
 	ctx.HTML(200, "index.html", ctx.Keys)
 
 }

@@ -16,7 +16,7 @@ func init() {
 	DB, err = gorm.Open(mysql.New(mysql.Config{
 		DSN:               dsn, // DSN data source name
 		DefaultStringSize: 256, // string 类型字段的默认长度
-	}), &gorm.Config{})
+	}), &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true})
 	if err != nil {
 		panic(err.Error())
 	}

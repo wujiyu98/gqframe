@@ -1,11 +1,9 @@
 package main
 
-import (
-	"github.com/wujiyu98/gqframe/router"
-)
+import "github.com/wujiyu98/gqframe/route"
 
 func main() {
 
-	router.Run()
+	route.Run()
 
 }
