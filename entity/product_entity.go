@@ -1,74 +1,67 @@
 package entity
 
-import (
-	"time"
-)
-
 // Category
 type Category struct {
-	ID         uint        `gorm:"primarykey"`
-	Name       string      `gorm:"not null"`
-	Slug       string      `gorm:"default:''"`
-	Path       string      `gorm:"not null;unique"`
-	ParentID   uint        `gorm:"smallint;not null;default:0"`
-	Sort       uint        `gorm:"smallint;default:0"`
-	Quantity   uint        `gorm:"default:0"`
-	Image      string      `gorm:"default:''"`
-	Summary    string      `gorm:"type:text;"`
-	Attributes []Attribute `gorm:"many2many:category_attriubtes"`
-	Specs      []Attribute `gorm:"many2many:category_specs"`
+	Model
+	Name        string      `gorm:"not null"`
+	Path        string      `gorm:"not null;unique"`
+	ParentID    uint32      `gorm:"smallint;not null;default:0"`
+	Sort        uint32      `gorm:"smallint;default:0"`
+	Quantity    uint32      `gorm:"default:0"`
+	Image       string      `gorm:"default:''"`
+	Description string      `gorm:"type:text;"`
+	Attributes  []Attribute `gorm:"many2many:category_attriubtes"`
+	Specs       []Attribute `gorm:"many2many:category_specs"`
 	Meta
-	CreatedAt time.Time
-	UpdatedAt time.Time
 }
 
 // Brand
 type Brand struct {
-	ID        uint `gorm:"primarykey"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Name      string `gorm:"not null;unique"`
-	Slug      string
-	Letter    string `gorm:"size:1;default:''"`
-	Path      string `gorm:"not null;index"`
-	Sort      uint   `gorm:"default:0"`
-	Quantity  uint   `gorm:"default:0"`
-	Image     string `gorm:"default:''"`
-	Summary   string `gorm:"type:text;"`
+	Model
+	Name        string `gorm:"not null;unique"`
+	Letter      string `gorm:"size:1;default:''"`
+	Path        string `gorm:"not null;index"`
+	Sort        uint32 `gorm:"default:0"`
+	Quantity    uint32 `gorm:"default:0"`
+	Image       string `gorm:"default:''"`
+	SameAs      string `gorm:"default:''"`
+	Description string `gorm:"type:text;"`
 	Meta
 }
 
 type Attribute struct {
-	ID   uint
-	Name string
+	Model
+	Name        string
+	Image       string
+	Description string
+	SameAs      string
+}
+
+type Option struct {
+	Model
+	Name        string
+	Image       string
+	Description string
+	SameAs      string
 }
 
 type Item struct {
-	ID         uint `gorm:"primarykey"`
-	Name       string
-	CategoryID uint
-	BrandID    uint
-	ImageID    uint
-	SaleAble   byte
-	Images     []Image `gorm:"many2many:item_images;"`
-	Summary    string
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
-}
-
-type ItemAttribute struct {
-	ID        uint
-	ProductID uint
-	Name      string
-	Value     string
+	Model
+	Name        string
+	CategoryID  uint32
+	BrandID     uint32
+	ImageID     uint32
+	Showed      byte
+	Quantity    uint32
+	Price       float64
+	Images      []Image `gorm:"many2many:item_images;"`
+	Description string
 }
 
 type ItemDetail struct {
-	ID     uint `gorm:"primarykey"`
-	ItemID uint
-	Meta
-	Description string
-	Content     string
+	ID      uint32
+	ItemID  uint32
+	Section string `gorm:"type:json"`
 }
 
 type Product struct {
@@ -79,21 +72,11 @@ type Product struct {
 	Description      string
 	Availability     byte
 	AvailabilityDate uint
-	Price            float64
-	SalePrice        float64
-	PriceUnit        string
-	Currency         string
-	QuantityLimit    string
 	Quantity         uint
-}
-
-type ItemSpec struct {
-	ProductID uint `gorm:"primarykey"`
-	SpecID    uint `gorm:"primarykey"`
-	Value     string
-}
-
-type ProductSpecOption struct {
-	ProductID uint
-	OptionID  uint
+	Price            float64
+	Currency         string
+	SalePrice        float64
+	Unit             string
+	Min              uint
+	Max              uint
 }

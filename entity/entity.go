@@ -8,6 +8,12 @@ type Meta struct {
 	Discription string `gorm:"default:''"`
 }
 
+type Model struct {
+	ID        uint32 `gorm:"primarykey"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
 type Price struct {
 	Min      uint
 	Value    uint
@@ -36,10 +42,8 @@ type Language struct {
 
 // WebSite
 type WebSite struct {
-	ID          uint `gorm:"primarykey"`
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	SiteName    string `gorm:"default:''"`
+	Model
+	Name        string `gorm:"default:''"`
 	Email       string `gorm:"default:''"`
 	Company     string `gorm:"default:''"`
 	Contact     string `gorm:"default:''"`
@@ -50,21 +54,21 @@ type WebSite struct {
 	QQ          string `gorm:"size:20;default:''"`
 	Whatsapp    string `gorm:"size:20;default:''"`
 	Address     string `gorm:"default:''"`
-	Summary     string `gorm:"type:text"`
+	Description string `gorm:"type:text"`
 }
 
 // Banner
 type Banner struct {
-	ID        uint `gorm:"primarykey"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Name      string `gorm:"default:''"`
-	Image     string `gorm:"default:''"`
-	Url       string `gorm:"default:''"`
-	Title     string `gorm:"default:''"`
-	Summary   string `gorm:"default:''"`
-	Color     string `gorm:"default:''"`
-	Position  string `gorm:"default:''"`
+	ID          uint `gorm:"primarykey"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	Name        string `gorm:"default:''"`
+	Image       string `gorm:"default:''"`
+	Url         string `gorm:"default:''"`
+	Title       string `gorm:"default:''"`
+	Description string `gorm:"default:''"`
+	Color       string `gorm:"default:''"`
+	Position    string `gorm:"default:''"`
 }
 
 type Seo struct {

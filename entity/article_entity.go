@@ -1,39 +1,33 @@
 package entity
 
-import "time"
-
 // ArticleCategory
 type ArticleCategory struct {
-	ID        uint `gorm:"primarykey"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Name      string `gorm:"not null"`
-	Path      string `gorm:"not null;index"`
-	ParentID  uint   `gorm:"not null;default:0"`
-	Sort      uint   `gorm:"default:0"`
-	Image     string `gorm:"default:''"`
-	Summary   string `gorm:"size:1000;default:''"`
-	Meta      Meta   `gorm:"embedded;embeddedPrefix:meta_"`
+	Model
+	Name        string `gorm:"not null"`
+	Path        string `gorm:"not null;index"`
+	ParentID    uint32 `gorm:"not null;default:0"`
+	Sort        uint32 `gorm:"default:0"`
+	Image       string `gorm:"default:''"`
+	Description string `gorm:"size:1000"`
+	Meta        Meta   `gorm:"embedded;embeddedPrefix:meta_"`
 }
 
 // Article
 type Article struct {
-	ID                uint `gorm:"primarykey"`
-	CreatedAt         time.Time
-	UpdatedAt         time.Time
-	ArticleCategoryID uint   `gorm:"type:smallint;not null"`
-	Title             string `gorm:"not null;uniqueIndex"`
+	Model
+	ArticleCategoryID uint32 `gorm:"type:smallint;not null"`
+	Name              string `gorm:"not null;uniqueIndex"`
 	Path              string `gorm:"not null;index"`
-	Sort              uint   `gorm:"default:0"`
+	Sort              uint32 `gorm:"default:0"`
 	Showed            *byte  `gorm:"default:1;index"`
 	Author            string `gorm:"size:60;default:''"`
-	Summary           string `gorm:"size:1000;default:''"`
+	Description       string `gorm:"size:1000"`
 	Image             string `gorm:"default:''"`
 }
 
-type ArticelDetail struct {
-	ID        uint   `gorm:"primarykey"`
-	ArticleID uint   `gorm:"not null;index"`
+type ArticleDetail struct {
+	ID        uint32 `gorm:"primarykey"`
+	ArticleID uint32 `gorm:"not null"`
 	Meta      Meta   `gorm:"embedded;embeddedPrefix:meta_"`
 	Content   string `gorm:"type:longtext"`
 }
